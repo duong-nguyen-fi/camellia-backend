@@ -4,10 +4,11 @@ import com.camellia.camelliabackend.entity.ErrorResponse;
 import com.camellia.camelliabackend.entity.Product;
 import com.camellia.camelliabackend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController(value = "/api/v1")
+@RestController()
 public class SearchProductController {
     @Autowired
     ProductService productService;
@@ -21,8 +22,14 @@ public class SearchProductController {
         return product;
     }
 
-    @PostMapping(path = "/products")
+    @PostMapping(path = "/products"
+            //,consumes = {"application/x-www-form-urlencoded;charset=UTF-8", "application/json;charset=UTF-8"}
+            //,consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE, MediaType.APPLICATION_JSON_VALUE}
+            //,produces = {MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE}
+            )
     public Product addProduct(@RequestBody Product product){
+            //System.out.println(product);
+
         return productService.addProduct(product);
     }
 

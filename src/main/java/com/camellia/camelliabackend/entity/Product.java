@@ -6,8 +6,15 @@ import javax.persistence.*;
 @Table(name="product")
 public class Product {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    public Product(String productId, Category category){
+        this.productId = productId;
+        this.category = category;
+    }
+
+    public Product(){}
 
     @Column(name = "product_id", unique = true, nullable = false)
     private String productId;
@@ -16,11 +23,11 @@ public class Product {
             @Column(name = "Category", nullable = false, updatable = true)
     private Category category;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -43,7 +50,7 @@ public class Product {
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%i, product_id='%s', category='%s']",
+                "Customer[id=%d, product_id='%s', category='%s']",
                 id, productId, category);
     }
 }
